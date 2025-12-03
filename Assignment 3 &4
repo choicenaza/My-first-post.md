@@ -1,0 +1,135 @@
+Assignment 3
+
+1. Primitive data type is a basic data built directly into a programme from which all other data types are constructed.
+
+2. Stack memory is used for managing function calls, local variables and temporary data. 
+The allocation of stack memory takes place on contigous blocks of memory.
+
+Heap memory is used for dynamic memory allocation, storing objects and data structure whose size is not known at compile time.
+The allocation of heap memory takes place during execution of programmers' instruction.
+
+3. 
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, c, d, e;     // primitive type integers
+    int sum;               // to store sum
+    float average;         // to store average (float is primitive)
+
+    // Input 5 integers
+    cout << "Enter 5 integers: ";
+    cin >> a >> b >> c >> d >> e;
+
+    // Calculate sum
+    sum = a + b + c + d + e;
+
+    // Calculate average
+    average = sum / 5.0;    // use 5.0 to get a float result
+
+    // Display results
+    cout << "Sum = " << sum << endl;
+    cout << "Average = " << average << endl;
+
+    return 0;
+}
+
+
+4.When a variable is declared and assigned a value, a memory is allocated for it and the specified value is stored in that location.
+
+Assignment 4
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int linearSearch(int arr[], int n, int key) {
+    for(int i = 0; i < n; i++) {
+        if(arr[i] == key)
+            return i;
+    }
+    return -1;
+}
+
+int binarySearch(int arr[], int n, int key) {
+    int low = 0, high = n - 1;
+
+    while(low <= high) {
+        int mid = (low + high) / 2;
+
+        if(arr[mid] == key)
+            return mid;
+        else if(arr[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int scores[20];
+    int n = 10;
+
+    for(int i = 0; i < n; i++) {
+        cin >> scores[i];
+    }
+
+    int sum = 0;
+    for(int i = 0; i < n; i++) {
+        sum += scores[i];
+    }
+    float average = (float)sum / n;
+    cout << "Average Score = " << average << endl;
+
+    int newScore;
+    cin >> newScore;
+
+    for(int i = n; i > 4; i--) {
+        scores[i] = scores[i - 1];
+    }
+    scores[4] = newScore;
+    n++;
+
+    for(int i = 0; i < n; i++) {
+        cout << scores[i] << " ";
+    }
+    cout << endl;
+
+    int minVal = scores[0], minIndex = 0;
+    for(int i = 1; i < n; i++) {
+        if(scores[i] < minVal) {
+            minVal = scores[i];
+            minIndex = i;
+        }
+    }
+
+    for(int i = minIndex; i < n - 1; i++) {
+        scores[i] = scores[i + 1];
+    }
+    n--;
+
+    for(int i = 0; i < n; i++) {
+        cout << scores[i] << " ";
+    }
+    cout << endl;
+
+    int key;
+    cin >> key;
+
+    int Lindex = linearSearch(scores, n, key);
+    if(Lindex != -1)
+        cout << "Linear Search: Found at index " << Lindex << endl;
+    else
+        cout << "Linear Search: Not Found" << endl;
+
+    sort(scores, scores + n);
+    int Bindex = binarySearch(scores, n, key);
+
+    if(Bindex != -1)
+        cout << "Binary Search: Found at index " << Bindex << endl;
+    else
+        cout << "Binary Search: Not Found" << endl;
+
+    return 0;
+}
